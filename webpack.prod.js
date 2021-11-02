@@ -2,6 +2,7 @@ const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
@@ -10,9 +11,11 @@ module.exports = {
     optimization: {
         minimizer: [new TerserPlugin({}), new OptimizeCSSAssetsPlugin({})],
     },
-    output: {
+    output:{
         libraryTarget: 'var',
-        library: 'Client'
+        library: 'Client',
+        path: path.resolve(__dirname, 'dist'),
+        filename: 'bundle.min.js'
     },
     mode: 'production',
     module: {
@@ -30,12 +33,13 @@ module.exports = {
                 test: /\.(png|jpe?g|gif)$/i,
                 loader: 'file-loader',
                 options: {
-                  name: '[path][name].[ext]',
+                    name: '[path][name].[ext]',
                 }
             }
         ]
     },
     plugins: [
+        new CleanWebpackPlugin(),
         new HtmlWebPackPlugin({
             template: "./src/client/views/index.html",
             filename: "./index.html",

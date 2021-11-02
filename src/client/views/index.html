@@ -13,31 +13,28 @@
     <body>
 
         <header>
-            <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
-            </div>
+            <h1>Evaluate News NLP</h1>
         </header>
-
+        <div id="formTitle">Please Enter URL Here</div>
         <main>
             <section>
                 <form class="" onsubmit="return Client.handleSubmit(event)">
-                    <input id="name" type="text" name="input" value="" placeholder="Name">
+                    <input id="name" type="text" name="input" value="" placeholder="Enter URL Here">
                     <input type="submit" id="btn-submit" name="" value="submit" onclick="return Client.handleSubmit(event)" onsubmit="return handleSubmit(event)">
                 </form>
             </section>
 
             <section>
                 <strong>Form Results:</strong>
-                <div id="results"></div>
-                <div id="text"></div>
-                <div id="agreement"></div>
-                <div id="subjectivity"></div>
-                <div id="confidence"></div>
-                <div id="irony"></div>
-                <div id="score_tag"></div>
+                <ul id="resultList">
+                    <li id="results"></li>
+                    <li id="text"></li>
+                    <li id="agreement"></li>
+                    <li id="subjectivity"></li>
+                    <li id="confidence"></li>
+                    <li id="irony"></li>
+                    <li id="score_tag"></li>
+                </ul>
             </section>
         </main>
 
