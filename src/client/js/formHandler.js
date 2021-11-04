@@ -37,25 +37,29 @@
 export const handleSubmit = async (e) => {
     e.preventDefault()
     const formText = document.getElementById('name').value
-    await fetch('http://localhost:3000/result', {
-        method: 'POST',
-        credentials: 'same-origin',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({formText})
-    })
-    .then(res => {
-        return res.json()
-    })
-    .then(function(data) {
-        document.getElementById('agreement').innerHTML = `Agreement: ${data.agreement}`
-        document.getElementById('subjectivity').innerHTML = `Subjectivity: ${data.subjectivity}`
-        document.getElementById('confidence').innerHTML = `Confidence: ${data.confidence}`
-        document.getElementById('irony').innerHTML = `Irony: ${data.irony}`
-        document.getElementById('score_tag').innerHTML = `Score Tag: ${data.score_tag}`
-    })
+    if(Client.is_url(formText)){
+        await fetch('http://localhost:3000/result', {
+            method: 'POST',
+            credentials: 'same-origin',
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({formText})
+        })
+        .then(res => {
+            return res.json()
+        })
+        .then(function(data) {
+            document.getElementById('agreement').innerHTML = `Agreement: ${data.agreement}`
+            document.getElementById('subjectivity').innerHTML = `Subjectivity: ${data.subjectivity}`
+            document.getElementById('confidence').innerHTML = `Confidence: ${data.confidence}`
+            document.getElementById('irony').innerHTML = `Irony: ${data.irony}`
+            document.getElementById('score_tag').innerHTML = `Score Tag: ${data.score_tag}`
+        })
+    }else{
+        alert("Please try a valid URL.")
+    }
 }
 
 /*console.log(formText)
