@@ -3,11 +3,6 @@
     <head>
         <meta charset="utf-8">
         <title>Test</title>
-        <link rel="stylesheet" href="src/client/styles/resets.scss">
-        <link rel="stylesheet" href="src/client/styles/base.scss">
-        <link rel="stylesheet" href="src/client/styles/header.scss">
-        <link rel="stylesheet" href="src/client/styles/form.scss">
-        <link rel="stylesheet" href="src/client/styles/footer.scss">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu&display=swap" rel="stylesheet">
     </head>
 
@@ -28,13 +23,7 @@
             <section id="resultSection">
                 <strong>Form Results:</strong>
                 <ul id="resultList">
-                    <li class="resultItems" id="results"></li>
-                    <li class="resultItems" id="text"></li>
-                    <li class="resultItems" id="agreement"></li>
-                    <li class="resultItems" id="subjectivity"></li>
-                    <li class="resultItems" id="confidence"></li>
-                    <li class="resultItems" id="irony"></li>
-                    <li class="resultItems" id="score_tag"></li>
+                    
                 </ul>
             </section>
         </main>
@@ -43,5 +32,15 @@
             <p id="footerP">Made with Love <i>&hearts;</i> By Me</p>
         </footer>
 
+        <script>
+            // This script is used to support offline functionality
+            // Here it checks that service workers are supported
+            if ('serviceWorker' in navigator) {
+                // Also here Using of load event to keep the page load performant
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/service-worker.js');
+                });
+            }
+        </script>
     </body>
 </html>

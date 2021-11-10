@@ -1,7 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
-const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 
 module.exports = {
     entry: './src/client/index.js',
@@ -9,11 +9,11 @@ module.exports = {
         libraryTarget: 'var',
         library: 'Client'
     },
-    mode: 'development',
+    mode: 'development', // specify that it is a development mode
     devtool: 'source-map',
     stats: 'verbose',
     module: {
-        rules: [
+        rules: [ // that is the rules array which is used to define used loaders
             {
                 test: '/\.js$/',
                 exclude: /node_modules/,
@@ -25,7 +25,7 @@ module.exports = {
             }
         ]
     },
-    plugins: [
+    plugins: [ // that is the plugins array which is used to define used plugins 
         new HtmlWebPackPlugin({
             template: "./src/client/views/index.html",
             filename: "./index.html",

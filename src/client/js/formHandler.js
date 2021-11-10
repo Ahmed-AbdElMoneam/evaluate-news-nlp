@@ -1,43 +1,16 @@
-/*export const post = async (url = '', data = {}) => {
-    console.log(data)
-    const response = await fetch(url, {
-        method: 'POST',
-        credentials: 'same-origin',
-        mode: 'cors',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(data)
-    })
-    const f_respo = response.json()
-    console.log(f_respo)
-    return f_respo
-    try {
-        return await response.json()
-    } catch (error) {
-        console.log(error)
-    }*/
-    /*.then(response => response.json())
-    .catch(function(error) {
-        alert(error);
-    });*/
-    /*.then(res => res.json())
-    .then(function(res){
-        document.getElementById('irony').innerHTML = res.polarity;
-        document.getElementById('agreement').innerHTML = res.polarity_confidence;
-        document.getElementById('score_tag').innerHTML = res.subjectivity;
-        document.getElementById('subjectivity').innerHTML = res.subjectivity_confidence;
-        console.log(res)
-    })
-    .catch(function(error) {
-        alert(error);
-    });
-}*/
-
+/**
+ * This is the function which will be executed after clicking submit. It takes the input of the text field and
+ * uses it when trying to fetch the API. then, it shows the result(received data from API) on the view
+ * @param {*} e 
+ */
 export const handleSubmit = async (e) => {
     e.preventDefault()
-    const formText = document.getElementById('name').value
-    if(Client.is_url(formText)){
+    // Making a sign to let user know that fetching data is pending
+    document.getElementById('resultList').innerHTML = "Loading..."
+    const formText = document.getElementById('name').value // Store input value
+    // Checking the entered text if it is a URL or not
+    if(Client.URLChecker(formText)){
+        // If it is a URL, start fetching data
         await fetch('http://localhost:3000/result', {
             method: 'POST',
             credentials: 'same-origin',
@@ -51,27 +24,32 @@ export const handleSubmit = async (e) => {
             return res.json()
         })
         .then(function(data) {
-            document.getElementById('agreement').innerHTML = `Agreement: ${data.agreement}`
-            document.getElementById('subjectivity').innerHTML = `Subjectivity: ${data.subjectivity}`
-            document.getElementById('confidence').innerHTML = `Confidence: ${data.confidence}`
-            document.getElementById('irony').innerHTML = `Irony: ${data.irony}`
-            document.getElementById('score_tag').innerHTML = `Score Tag: ${data.score_tag}`
+            // Here I will handle viewing the response into the view using vanilla javascript
+            const uList = document.getElementById('resultList')
+            uList.innerHTML = ""
+
+            const agreement = document.createElement("li")
+            agreement.innerText = `Agreement: ${data.agreement}`
+            uList.append(agreement)
+
+            const subjectivity = document.createElement("li")
+            subjectivity.innerText = `Subjectivity: ${data.subjectivity}`
+            uList.append(subjectivity)
+
+            const confidence = document.createElement("li")
+            confidence.innerText = `Confidence: ${data.confidence}`
+            uList.append(confidence)
+
+            const irony = document.createElement("li")
+            irony.innerText = `Irony: ${data.irony}`
+            uList.append(irony)
+
+            const score_tag = document.createElement("li")
+            score_tag.innerText = `Score Tag: ${data.score_tag}`
+            uList.append(score_tag)
         })
     }else{
-        alert("Please try a valid URL.")
+        alert("Please try a valid URL.") // If it isn't URL, show alert to the user to enter a valid URL
     }
 }
-
-/*console.log(formText)
-    if(Client.is_url(formText)){
-        post("http://localhost:3000/result", {text: formText}).then((data) => {
-            document.getElementById("agreement").innerHTML = `Paynjkv = ${data.score_tag}`
-            document.getElementById("irony").innerHTML = data.irony
-            /*console.log(data)
-            return data
-        }).catch(error => console.log(error))
-    }else{
-        alert("Please try a valid URL.")
-    }*/
-
 
